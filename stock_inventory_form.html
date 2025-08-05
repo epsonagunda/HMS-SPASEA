@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Stock Inventory</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <h1>Pharmacy Stock Inventory Form</h1>
+<fieldset>
+    <form action="insert_inventory.php" method="post">
+        <label for="item_code">Item Code:</label><br>
+        <input type="text" id="item_code" name="item_code" required><br><br>
+
+        <label for="product_name">Product Name:</label><br>
+        <input type="text" id="product_name" name="product_name" required><br><br>
+
+        <label for="category">Category:</label><br>
+        <input type="text" id="category" name="category"><br><br>
+
+        <label for="quantity_in_stock">Quantity in Stock:</label><br>
+        <input type="number" id="quantity_in_stock" name="quantity_in_stock" required><br><br>
+
+        <label for="reorder_level">Reorder Level:</label><br>
+        <input type="number" id="reorder_level" name="reorder_level" required><br><br>
+
+        <label for="unit_price">Unit Price ($):</label><br>
+        <input type="number" step="0.01" id="unit_price" name="unit_price" required><br><br>
+
+        <label for="supplier">Supplier:</label><br>
+        <input type="text" id="supplier" name="supplier"><br><br>
+
+        <label for="expiry_date">Expiry Date:</label><br>
+        <input type="date" id="expiry_date" name="expiry_date" required><br><br>
+
+        <label for="total_value">Total Value ($):</label><br>
+        <input type="number" step="0.01" id="total_value" name="total_value" readonly><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</fieldset>
+    <script>
+        // JavaScript to auto-calculate the total value based on quantity and unit price
+        const quantityInStock = document.getElementById('quantity_in_stock');
+        const unitPrice = document.getElementById('unit_price');
+        const totalValue = document.getElementById('total_value');
+
+        function calculateTotalValue() {
+            totalValue.value = (parseFloat(quantityInStock.value) * parseFloat(unitPrice.value)).toFixed(2);
+        }
+
+        quantityInStock.addEventListener('input', calculateTotalValue);
+        unitPrice.addEventListener('input', calculateTotalValue);
+    </script>
+<footer id="foot01"></footer>
+  <script src="script.js"></script>
+</body>
+</html>
