@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Billing Form</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="shortcut icon" href="Log.png" type="image/png">
+</head>
+
+<body>
+  <header>
+    <h1>Billing Information</h1>
+  </header>
+
+  <form id="billingForm" action="process_billing.php" method="POST">
+    <!-- Patient Information Section -->
+    <fieldset>
+      <legend>Patient Information</legend>
+
+      <label for="patientPrefix">Select Prefix:</label>
+      <select id="patientPrefix" name="prefix">
+        <option value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Ms">Ms</option>
+        <option value="Dr">Dr</option>
+        <option value="Baby">Baby</option>
+      </select>
+
+      <label for="patientFirstName">First Name:</label>
+      <input type="text" id="patientFirstName" name="firstName" required>
+
+      <label for="patientLastName">Last Name:</label>
+      <input type="text" id="patientLastName" name="lastName" required>
+
+      <label for="patientContact">Contact Number:</label>
+      <input type="tel" id="patientContact" name="contact" required>
+    </fieldset>
+
+    <!-- Billing Information Section -->
+    <fieldset>
+      <legend>Billing Information</legend>
+
+      <label for="billingAddress">Billing Address:</label>
+      <textarea id="billingAddress" name="billingAddress" rows="4" required></textarea>
+
+      <label for="billingDate">Billing Date:</label>
+      <input type="date" id="billingDate" name="billingDate" required>
+
+      <label for="paymentMethod">Payment Method:</label>
+      <select id="paymentMethod" name="paymentMethod" required>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Debit Card">Debit Card</option>
+        <option value="Cash">Cash</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="itemsBilled">Items/Services Billed:</label>
+      <textarea id="itemsBilled" name="itemsBilled" rows="4" placeholder="Describe the services or items billed" required></textarea>
+
+      <label for="amountDue">Amount Due:</label>
+      <input type="number" id="amountDue" name="amountDue" step="0.01" min="0" required>
+
+      <label for="paymentStatus">Payment Status:</label>
+      <select id="paymentStatus" name="paymentStatus" required>
+        <option value="Paid">Paid</option>
+        <option value="Pending">Pending</option>
+        <option value="Partial">Partial</option>
+      </select>
+    </fieldset>
+
+    <!-- Submit Section -->
+    <button type="submit">Submit Billing</button>
+  </form>
+
+  <footer id="foot01"></footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
