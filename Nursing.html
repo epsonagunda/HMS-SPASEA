@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Triage</title>
+<link href="Log.png" rel="shortcut icon">
+<link rel="stylesheet" href="sitestriage.css">
+
+</head>
+<body>
+
+<h1>Nursing Assessment</h1>
+  <form action="save_nursing.php" method="POST">
+    <label for="patient_id">Select Patient:</label>
+    <select name="patient_id" id="patient_id" required>
+      <option value="">-- Select Patient --</option>
+      <?php while ($row = $patients->fetch_assoc()): ?>
+        <option value="<?= $row['id'] ?>">
+          <?= htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) ?>
+        </option>
+      <?php endwhile; ?>
+    </select><br><br>
+
+    <label for="weight">Weight (kg):</label>
+    <input type="number" name="weight" id="weight" step="0.1" required><br><br>
+
+    <label for="height">Height (cm):</label>
+    <input type="number" name="height" id="height" step="0.1" required><br><br>
+
+    <label for="temperature">Temperature (°C):</label>
+    <input type="number" name="temperature" id="temperature" step="0.1" required><br><br>
+
+    <label for="pulse">Pulse (bpm):</label>
+    <input type="number" name="pulse" id="pulse" required><br><br>
+
+    <label for="blood_pressure">Blood Pressure (mmHg):</label>
+    <input type="text" name="blood_pressure" id="blood_pressure" placeholder="e.g. 120/80" required><br><br>
+
+    <label for="note">Nurse's Note:</label><br>
+    <textarea name="note" id="note" rows="4" cols="50" placeholder="Any observations..."></textarea><br><br>
+
+    <button type="submit">Save Vitals</button>
+  </form>
+
+</body>
+</html>
