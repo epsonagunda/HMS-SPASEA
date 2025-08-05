@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pharmacy Prescription Form</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="shortcut icon" href="Log.png" type="image/png">
+</head>
+
+<body>
+  <header>
+    <h1>Pharmacy Dashboard</h1>
+  </header>
+
+  <form id="pharmacyForm" action="process_pharmacy.php" method="POST">
+    <!-- Patient Lookup Section -->
+    <fieldset>
+      <legend>Patient Lookup</legend>
+      <label for="patientId">Search Patient by ID or Name:</label>
+      <input type="text" id="patientId" name="patientId" placeholder="Enter Patient ID or Name" required>
+      <button type="button" onclick="fetchPatientData()">Search</button>
+    </fieldset>
+
+    <!-- Patient Information Section -->
+    <fieldset>
+      <legend>Patient Information</legend>
+
+      <label for="prefix">Prefix:</label>
+      <select id="patientPrefix" name="prefix" required>
+        <option value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Ms">Ms</option>
+        <option value="Dr">Dr</option>
+        <option value="Baby">Baby</option>
+      </select>
+
+      <label for="firstName">First Name:</label>
+      <input type="text" id="patientFirstName" name="firstName" required>
+
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="patientLastName" name="lastName" required>
+
+      <label for="contact">Contact Number:</label>
+      <input type="tel" id="patientContact" name="contact" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="patientAge" name="age" min="0" max="120" required>
+
+      <label for="gender">Gender:</label>
+      <select id="patientGender" name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+    </fieldset>
+
+    <!-- OTC (Over-the-Counter) Sales Option -->
+    <fieldset>
+      <legend>Sales Type</legend>
+      <label for="otc">Over-the-Counter (OTC) Sale:</label>
+      <input type="checkbox" id="otc" name="otc" value="yes" onchange="togglePrescriptionSection()"> Check this if it's an OTC sale
+    </fieldset>
+
+    <!-- Prescription Information Section (Visible only if not OTC) -->
+    <fieldset id="prescriptionSection" style="display: block;">
+      <legend>Prescription Information</legend>
+
+      <label for="prescriptionNumber">Prescription Number:</label>
+      <input type="text" id="prescriptionNumber" name="prescriptionNumber" required>
+
+      <label for="doctorName">Doctor's Name:</label>
+      <input type="text" id="doctorName" name="doctorName" required>
+
+      <label for="doctorContact">Doctor's Contact:</label>
+      <input type="tel" id="doctorContact" name="doctorContact" required>
+
+      <label for="prescriptionDate">Prescription Date:</label>
+      <input type="date" id="prescriptionDate" name="prescriptionDate" required>
+    </fieldset>
+
+    <!-- Medication Details Section -->
+    <fieldset>
+      <legend>Medication Details</legend>
+      <div id="medicationFields">
+        <div class="medicationGroup">
+          <label for="medicationName">Medication Name:</label>
+          <input type="text" name="medicationName[]" required>
+
+          <label for="dosage">Dosage:</label>
+          <input type="text" name="dosage[]" required>
+
+          <label for="quantity">Quantity:</label>
+          <input type="number" name="quantity[]" min="1" required>
+
+          <label for="medicationInstructions">Medication Instructions:</label>
+          <textarea name="instructions[]" rows="4" required></textarea>
+        </div>
+      </div>
+      <button type="button" onclick="addMedicationField()">Add Another Medication</button>
+    </fieldset>
+
+    <!-- Payment Information Section -->
+    <fieldset>
+      <legend>Payment Information</legend>
+
+      <label for="paymentMethod">Payment Method:</label>
+      <select id="paymentMethod" name="paymentMethod" required>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Debit Card">Debit Card</option>
+        <option value="Cash">Cash</option>
+        <option value="Insurance">Insurance</option>
+      </select>
+
+      <label for="amountDue">Amount Due:</label>
+      <input type="number" id="amountDue" name="amountDue" step="0.01" min="0" required>
+
+      <label for="paymentStatus">Payment Status:</label>
+      <select id="paymentStatus" name="paymentStatus" required>
+        <option value="Paid">Paid</option>
+        <option value="Pending">Pending</option>
+        <option value="Partial">Partial</option>
+      </select>
+    </fieldset>
+
+    <!-- Submit Section -->
+    <button type="submit">Submit Prescription</button>
+  </form>
+
+  <footer id="foot01"></footer>
+  <script src="script.js"></script>
+
+  <script>
+    // Function to toggle prescription section visibility based on OTC checkbox
+    function togglePrescriptionSection() {
+      var otcChecked = document.getElementById('otc').checked;
+      var prescriptionSection = document.getElementById('prescriptionSection');
+      if (otcChecked) {
+        prescriptionSection.style.display = 'none';  // Hide prescription section for OTC
+      } else {
+        prescriptionSection.style.display = 'block';  // Show prescription section for non-OTC
+      }
+    }
+
+    // Function to simulate fetching patient data based on the patient ID or Name
+    function fetchPatientData() {
+      var patientId = document.getElementById('patientId').value;
+
+      // You can replace this with an actual API call to fetch patient data from the database
+      // For now, we'll just simulate it with some hardcoded data
+      if (patientId === '12345') {
+        // Populate patient details
+        document.getElementById('patientPrefix').value = 'Mr';
+        document.getElementById('patientFirstName').value = 'John';
+        document.getElementById('patientLastName').value = 'Doe';
+        document.getElementById('patientContact').value = '+123456789';
+        document.getElementById('patientAge').value = 30;
+        document.getElementById('patientGender').value = 'male';
+      } else {
+        alert('Patient not found. Please check the ID or Name.');
+      }
+    }
+
+    // Function to add another medication input field
+    function addMedicationField() {
+      var medicationFieldsDiv = document.getElementById('medicationFields');
+
+      // Create new div for a new medication group
+      var newMedicationGroup = document.createElement('div');
+      newMedicationGroup.classList.add('medicationGroup');
+
+      // Add medication name field
+      newMedicationGroup.innerHTML += `
+        <label for="medicationName">Medication Name:</label>
+        <input type="text" name="medicationName[]" required>
+
+        <label for="dosage">Dosage:</label>
+        <input type="text" name="dosage[]" required>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity[]" min="1" required>
+
+        <label for="medicationInstructions">Medication Instructions:</label>
+        <textarea name="instructions[]" rows="4" required></textarea>
+      `;
+
+      // Append new medication group to medication fields
+      medicationFieldsDiv.appendChild(newMedicationGroup);
+    }
+  </script>
+</body>
+
+</html>
